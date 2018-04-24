@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import CreateTodo from './create-todo';
 import TodosList from './todos-list';
 
 const todos = [
 {
-    task: 'make React tutorial',
+    task: 'make Breakfast',
     isCompleted: false
 },
 {
@@ -41,7 +40,7 @@ export default class App extends React.Component {
     }
 
     toggleTask(task) {
-        const foundTodo = _.find(this.state.todos, todo => todo.task === task);
+        const foundTodo = this.state.todos.find(todo => todo.task === task);
         foundTodo.isCompleted = !foundTodo.isCompleted;
         this.setState({ todos: this.state.todos });
     }
@@ -55,13 +54,13 @@ export default class App extends React.Component {
     }
 
     saveTask(oldTask, newTask) {
-        const foundTodo = _.find(this.state.todos, todo => todo.task === oldTask);
+        const foundTodo = this.state.todos.find(todo => todo.task === oldTask);
         foundTodo.task = newTask;
         this.setState({ todos: this.state.todos });
     }
 
     deleteTask(taskToDelete) {
-        _.remove(this.state.todos, todo => todo.task === taskToDelete);
-        this.setState({ todos: this.state.todos });
+        const newState = this.state.todos.filter(todo => todo.task !== taskToDelete);
+        this.setState({ todos: newState });
     }
 }
